@@ -2,19 +2,9 @@ import random
 import sqlite3 as lite
 from banco import conexao
 
-'''
-No mínimo 3 classes 
-Diagrama de classes
-No mínimo 2 relacionamentos entre as classes
-Encapsulamento (getter e setter @properties)
-CRUD - persistência de dados (banco de dados)
-Tratamento de exceções.
-'''
-
 #SUDOKU =========================================================================================================================
 class Sudoku:
     def __init__(self, status, lista1=None, lista2=None, lista3=None, lista4=None, lista5=None, lista6=None, lista7=None, lista8=None, lista9=None):
-        # A matriz é uma lista de listas que representa o tabuleiro do Sudoku
         self.matriz = [
             lista1 or [0] * 9,
             lista2 or [0] * 9,
@@ -43,7 +33,6 @@ class Sudoku:
             if sorted(valoresColuna) != list(range(1, 10)):
                 return False
 
-
         #verificando quadrante
         for linha in range(0, 9, 3):
             for coluna in range(0, 9, 3):
@@ -57,7 +46,6 @@ class Sudoku:
         return True
     
     def gerarSudoku(self):
-        #Tive que pesquisar para conseguir utilizar o método de backtracking
         def preencherGrade():
             for linha in range(9):
                 for coluna in range(9):
@@ -76,7 +64,6 @@ class Sudoku:
         preencherGrade()
 
     def conferirInserir(self, linha, coluna, num):
-        # Verifica se 'num' pode ser inserido na posição [linha][coluna]
         if num in self.matriz[linha]:
             return False
         for i in range(9):
@@ -91,17 +78,11 @@ class Sudoku:
         return True
     
     def removerNumeros(self, quantidade):
-
-        # Cria uma lista de todas as posições possíveis (linha, coluna)
         posicoes = [(linha, coluna) for linha in range(9) for coluna in range(9)]
-
-        # Embaralha as posições para garantir aleatoriedade
         random.shuffle(posicoes)
-
-        # Remove os números nas posições selecionadas
         for i in range(quantidade):
-            linha, coluna = posicoes[i]  # Obtém a posição (linha, coluna)
-            self.matriz[linha][coluna] = 0  # Define a célula como 0 (número removido
+            linha, coluna = posicoes[i] 
+            self.matriz[linha][coluna] = 0 
 
 #JOGADOR =========================================================================================================================
 class Jogador:
